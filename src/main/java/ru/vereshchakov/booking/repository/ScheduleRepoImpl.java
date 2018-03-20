@@ -5,6 +5,7 @@ import ru.vereshchakov.booking.entity.slots.TimeSlot;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,6 +27,11 @@ public class ScheduleRepoImpl implements ScheduleRepo {
 
     @Override
     public boolean addAvailableTimeSlot(String ownerId, LocalDateTime dateTime) {
+        return addAvailableTimeSlots(ownerId, Collections.singletonList(dateTime));
+    }
+
+    @Override
+    public boolean addAvailableTimeSlots(String ownerId, List<LocalDateTime> dateTimes) {
         return false;
     }
 }

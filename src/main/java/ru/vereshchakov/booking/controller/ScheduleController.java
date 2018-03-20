@@ -89,7 +89,7 @@ public final class ScheduleController {
                     .build();
         }
 
-        boolean isAdded = scheduleService.addAvailableTimeSlot(request.getPersonId(), getLdtFromTimeSlotRequest(request));
+        boolean isAdded = scheduleService.addAvailableTimeSlots(request.getPersonId(), getLdtFromTimeSlotRequest(request));
         return Response.createResponse()
                 .withStatus(ResponseStatus.OK)
                 .withEntity(isAdded)
@@ -112,13 +112,19 @@ public final class ScheduleController {
         return errors;
     }
 
-    private LocalDateTime getLdtFromTimeSlotRequest(TimeSlotRequest request) {
-        TimeSlotRequest.SlotDateTime slotDateTime = request.getSlotDateTime();
-        int year = Integer.parseInt(slotDateTime.getYear());
-        int dayOfMonth = Integer.parseInt(slotDateTime.getDayOfMonth());
-        int hour = Integer.parseInt(slotDateTime.getHour());
-        int minute = Integer.parseInt(slotDateTime.getMinute());
-        return LocalDateTime.of(year, slotDateTime.getMonth(), dayOfMonth, hour, minute);
+    private List<LocalDateTime> getLdtFromTimeSlotRequest(TimeSlotRequest request) {
+        List<TimeSlotRequest.SlotDateTime> slotDateTimes = request.getSlotDateTime();
+        List<LocalDateTime> result = new ArrayList<>();
+        for (TimeSlotRequest.SlotDateTime slotDateTime : slotDateTimes) {
+            int year = Integer.parseInt(slotDateTime.getYear());
+            int dayOfMonth = Integer.parseInt(slotDateTime.getDayOfMonth());
+            int hour = Integer.parseInt(slotDateTime.getHour());
+            int minute = Integer.parseInt(slotDateTime.getMinute());
+
+            result.add(LocalDateTime.of(year, slotDateTime.getMonth(), dayOfMonth, hour, minute));
+        }
+
+        return result;
     }
 
     private Response createErrorResponse(Exception e) {

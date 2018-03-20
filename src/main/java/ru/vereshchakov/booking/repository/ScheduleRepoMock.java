@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -63,6 +64,11 @@ public class ScheduleRepoMock implements ScheduleRepo {
 
     @Override
     public boolean addAvailableTimeSlot(String ownerId, LocalDateTime dateTime) {
+        return addAvailableTimeSlots(ownerId, Collections.singletonList(dateTime));
+    }
+
+    @Override
+    public boolean addAvailableTimeSlots(String ownerId, List<LocalDateTime> dateTimes) {
         return true;
     }
 

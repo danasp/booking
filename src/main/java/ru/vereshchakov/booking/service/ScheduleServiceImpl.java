@@ -74,12 +74,20 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public boolean addAvailableTimeSlot(String ownerId, LocalDateTime dateTime) {
+        return addAvailableTimeSlots(ownerId, Collections.singletonList(dateTime));
+    }
+
+    @Override
+    public boolean addAvailableTimeSlots(String ownerId, List<LocalDateTime> dateTimes) {
         Person producer = personRepo.getPersonById(ownerId);
         //TODO: check that timeslot wasn't occupied by customer
-        if (isAvailableToBeAvailable(ownerId, dateTime)) {
-            return scheduleRepo.addAvailableTimeSlot(producer.getId(), dateTime);
+        for (LocalDateTime dateTime : dateTimes) {
+            if (!isAvailableToBeAvailable(ownerId, dateTime)) {
+                return false;
+            }
         }
-        return false;
+
+        return scheduleRepo.addAvailableTimeSlots(producer.getId(), dateTimes);
     }
 
     @Override

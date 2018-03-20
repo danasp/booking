@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import ru.vereshchakov.booking.entity.slots.SlotType;
 
 import java.time.Month;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by dvere on 14.01.2018.
@@ -13,10 +15,10 @@ public class TimeSlotRequest {
 
     private String personId;
     private SlotType slotType;
-    private SlotDateTime slotDateTime;
+    private List<SlotDateTime> slotDateTime;
 
 
-    public TimeSlotRequest(String personId, SlotType slotType, SlotDateTime slotDateTime) {
+    public TimeSlotRequest(String personId, SlotType slotType, List<SlotDateTime> slotDateTime) {
         this.personId = personId;
         this.slotType = slotType;
         this.slotDateTime = slotDateTime;
@@ -70,7 +72,7 @@ public class TimeSlotRequest {
         return slotType;
     }
 
-    public SlotDateTime getSlotDateTime() {
-        return slotDateTime;
+    public List<SlotDateTime> getSlotDateTime() {
+        return Collections.unmodifiableList(slotDateTime);
     }
 }

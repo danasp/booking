@@ -14,4 +14,5 @@ public interface ScheduleRepo {
     List<TimeSlot> getAllTimeSlotsByMonth(String personId, Month month);
     List<TimeSlot> getTimeSlotsByEndDate(String personId, LocalDateTime startDate, LocalDateTime endDate);
     boolean addAvailableTimeSlot(String ownerId, LocalDateTime dateTime);
+    boolean addAvailableTimeSlots(String ownerId, List<LocalDateTime> dateTimes);
 }

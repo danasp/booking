@@ -16,5 +16,6 @@ public interface ScheduleService {
     List<TimeSlot> getFreeTimeSlotByMonth(String personId, Month month);
 
     boolean addAvailableTimeSlot(String ownerId, LocalDateTime dateTime);
+    boolean addAvailableTimeSlots(String ownerId, List<LocalDateTime> dateTimes);
     boolean occupyTimeSlot(String ownerId, String consumerId, LocalDateTime dateTime);
 }
